@@ -1,103 +1,70 @@
-### SECTION 1: 
-##### SELECT QUERIES 101 - Exercise 1 Tasks
+# Session – 2026-06-17
 
-* Find the title of each film
-    ```sql
-    SELECT title FROM movies;
-    ```
-* Find the director of each film
-    ```sql
-    SELECT director FROM movies;
-    ```
-* Find the title and director of each film
-    ```sql
-    SELECT title, director FROM movies;
-    ```
-* Find the title and year of each film
-    ```sql
-    SELECT title, year FROM movies;
-    ```
-* Find all the information about each film
-    ```sql
-    SELECT * FROM movies;
-    ```
+## Topics covered
+- `SELECT`
+- Selecting specific columns
+- Selecting all columns with `*`
+- `WHERE`
+- Filtering by `id`
+- `BETWEEN` and `NOT BETWEEN`
+- `LIKE`
+- Equality and inequality conditions
+- `DISTINCT`
+- `ORDER BY`
+- `LIMIT`
+- `OFFSET`
+- Querying data from multiple tables
+- Basic `LEFT JOIN`
+- Finding rows with no match using `LEFT JOIN ... IS NULL`
 
-### SECTION 2:
-##### QUERIES WITH CONSTRAINTS PT1 - Exercise 2 Tasks
-* Find the movie with a row id of 6
-    ```sql
-    SELECT * FROM movies WHERE id = 6;
-    ```
-* Find the movies realeased in the years between 2000 and 2010
-    ```sql
-    SELECT * FROM movies WHERE year BETWEEN 2000 AND 2010;
-    ```
-* Find the movies not released in the years between 2000 and 2010
-    ```sql
-    SELECT * FROM movies WHERE year NOT BETWEEN 2000 AND 2010;
-    ```
-* Find the first 5 Pixar movies and their release year
-    ```sql
-    SELECT * FROM movies WHERE id BETWEEN 1 AND 5;
-    ```
+## What I understood
+- `SELECT` is used to retrieve data from a table.
+- I can select one column, multiple columns, or all columns with `*`.
+- `WHERE` filters rows based on a condition.
+- `BETWEEN` helps filter values inside a range, and `NOT BETWEEN` excludes that range.
+- `LIKE` is used to search for patterns in text.
+- `DISTINCT` removes duplicate values from the result.
+- `ORDER BY` sorts results, and `ASC` / `DESC` control the order direction.
+- `LIMIT` restricts the number of rows returned.
+- `OFFSET` skips a number of rows before returning results.
+- A `LEFT JOIN` returns all rows from the left table and matching rows from the right table.
+- If there is no match in a `LEFT JOIN`, the columns from the right table return `NULL`.
+- `IS NULL` can be used after a `LEFT JOIN` to find records that do not have a match.
 
-### SECTION 3:
-#### QUERIES WITH CONSTRAINTS PT2 - Exercise 3 Tasks
-* Find all the Toy Story Movies
-    ```sql
-    SELECT  * FROM movies WHERE title LIKE "Toy Story%";
-    ```
-* Find all the movies directed by John Lester
-    ```sql
-    SELECT * FROM movies WHERE director = "John Lasseter";
-    ```
-* Find all the movies (and director) not directed by John Lasseter
-    ```sql
-    SELECT * FROM movies WHERE director != "John Lasseter";
-    ```
-* Find all the WALL-* movies
-    ```sql
-    SELECT * FROM movies WHERE title LIKE "wall-%";
-    ```
+## What is still confusing
+- When to use `LIKE` instead of `=`
+- When `BETWEEN` is better than using `>=` and `<=`
+- How `OFFSET` works together with `LIMIT` in real cases
+- How to decide when to use `DISTINCT`
+- Why `LEFT JOIN ... IS NULL` is the standard way to find rows with no related records
 
-### SECTION 4:
-##### FILTERING AND SORTING QUERY RESULTS - Exercise 4 Tasks
-* List all directors of Pixar movies (alphabetically), without duplicates
-    ```sql
-    SELECT DISTINCT director FROM movies ORDER BY director ASC;
-    ```
-* List the last four Pixar movies released (ordered from most recent to least)
-    ```sql
-    SELECT * FROM movies ORDER BY year DESC LIMIT 4;
-    ```
-* List the first five Pixar movies sorted alphabetically
-    ```sql
-    SELECT * FROM movies ORDER BY title ASC LIMIT 5;
-    ```
-* List the next five Pixar movies sorted alphabetically
-    ```sql
-    SELECT * FROM movies ORDER BY title ASC LIMIT 5 OFFSET 5;
-    ```
+## Questions
+- What is the difference between `LIKE` and `=` in practice?
+- Is `BETWEEN` inclusive of both ends of the range?
+- When should I use `DISTINCT` instead of fixing duplicates another way?
+- How does `LIMIT 2 OFFSET 2` work step by step?
+- Why does `LEFT JOIN` return `NULL` for missing matches?
+- Are there other ways to find pages with no likes besides `LEFT JOIN ... IS NULL`?
 
-### SECTION 5:
-##### SIMPLE SELECT QUERIES - Exercise 5 Tasks
-* List all the Canadian cities and their populations
-    ```sql
-    SELECT city, population FROM north_american_cities WHERE country = "Canada";
-    ```
-* Order all the cities in the United States by their latitude from north to south
-    ```sql
-    SELECT city FROM north_american_cities WHERE country = "United States" ORDER BY latitude DESC;
-    ```
-* List all the cities west of Chicago, ordered from west to east
-    ```sql
-    SELECT city FROM north_american_cities WHERE longitude < -87.629798 ORDER BY longitude ASC;
-    ```
-* List the two largest cities in Mexico (by population)
-    ```sql
-    SELECT city FROM north_american_cities WHERE country = "Mexico" ORDER BY population DESC LIMIT 2;
-    ```
-* List the third and fourth largest cities (by population) in the United States and their population
-    ```sql
-    SELECT city, population FROM north_american_cities WHERE country = "United States" ORDER BY population DESC LIMIT 2 OFFSET 2;
-    ```
+## Related concepts
+- Primary key
+- Foreign key
+- `NULL`
+- Aliases
+- Pattern matching
+- Filtering
+- Sorting
+- Pagination
+
+## Resources used
+- SQL practice exercises
+- Class notes
+- `resources/`
+
+## Notes and examples
+
+### Basic `SELECT` queries
+
+**Select all movie titles**
+```sql
+SELECT title FROM movies;
