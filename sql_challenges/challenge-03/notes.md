@@ -1,58 +1,61 @@
+## Topics covered
+- Aggregate functions
+- `MAX()`
+- `AVG()`
+- `SUM()`
+- `COUNT()`
+- `COUNT(DISTINCT ...)`
+- `STDDEV()`
+- `GROUP BY`
+- `HAVING`
+- Filtering with `WHERE`
+- Group filtering vs row filtering
 
-# Find the longest time that an employee has been at the studio
-- SELECT MAX(years_employed) FROM employees;
+## What I understood
+- Aggregate functions summarize data from many rows into one result.
+- `MAX(column)` returns the largest value in a column.
+- `AVG(column)` returns the average value.
+- `SUM(column)` adds values together.
+- `COUNT(column)` counts non-`NULL` values in that column.
+- `COUNT(DISTINCT column)` counts unique values only.
+- `GROUP BY` is used when I want aggregates for each category, such as each role or each shape.
+- `WHERE` filters rows before grouping.
+- `HAVING` filters groups after grouping.
+- `STDDEV(DISTINCT weight)` measures how spread out the distinct weight values are.
+- If I use an aggregate with another selected column, I usually need `GROUP BY` for that column.
 
-# For each role, find the average number of years employed by employees in that role
-SELECT AVG(years_employed) , role
-FROM employees
-GROUP BY role
-;
+## What is still confusing
+- The exact difference between `WHERE` and `HAVING`
+- When to use `COUNT(*)` vs `COUNT(column)`
+- Why some aggregate queries need `GROUP BY` and others do not
+- How `STDDEV()` should be interpreted in practice
+- When to use `DISTINCT` inside aggregate functions
 
-# Find the total number of employee years worked in each building
-SELECT building , SUM(years_employed) 
-FROM employees
-GROUP BY building
-;
+## Questions
+- What is the difference between `WHERE` and `HAVING` step by step?
+- When should I use `COUNT(*)` instead of `COUNT(role)`?
+- Why does `SELECT role, SUM(years_employed)` usually need `GROUP BY role`?
+- What does standard deviation actually tell me about the data?
+- When is `DISTINCT` useful inside `COUNT()` or `STDDEV()`?
 
-# Find the number of Artists in the studio (without a HAVING clause)
-SELECT Count(role)
-FROM employees
-where role = 'Artist'
-;
+## Related concepts
+- `MIN()`
+- `DISTINCT`
+- `NULL`
+- Filtering
+- Grouping
+- Summary statistics
 
-# Find the number of Employees of each role in the studio
-SELECT role ,Count(role)
-FROM employees
-GROUP By role
-;
+## Resources used
+- SQL practice exercises
+- Class notes
+- `resources/`
 
-# Find the total number of years employed by all Engineers
-SELECT role , Sum(Years_employed)
-FROM employees
-Where role = 'Engineer'
-;
+## Notes and examples
 
+### Maximum value in a column
 
-# 4 . Try It!
-- Complete the following query to return the:
-- Number of different shapes
-- The standard deviation (stddev) of the unique weights
-
-select COUNT(distinct shape) number_of_shapes,
-        STDDEV(unique weight) distinct_weight_stddev
-from   bricks;
-
-# 6 . Try It!
-- Complete the following query to return the total weight for each shape stored in the bricks table:
-
-select shape, SUM(weight) shape_weight
-from   bricks
-group by shape;
-
-# 8 . Try It!
-- Complete the following query to find the shapes which have a total weight less than four:
-
-select shape, sum ( weight ) sw
-from   bricks
-group  by shape
-having sw < 4;
+**Find the maximum years employed**
+```sql
+SELECT MAX(years_employed)
+FROM employees;
