@@ -17,6 +17,22 @@
 •⁠  ⁠The LEFT JOIN keyword returns all records from the left table (table1), and the matching records from the right table (table2). The result is 0 records from the right side, if there is no match.
 •⁠  ⁠Self join is a regular join, but the table is joined with itself.
 
+## What is still confusing
+- When to use `INNER JOIN` vs `LEFT JOIN`
+- How `NULL` appears after a `LEFT JOIN`
+- Difference between conditions in `ON` and `WHERE`
+- When to use `DISTINCT` vs `GROUP BY`
+- How aliases work in joins
+- Why `RIGHT JOIN` is less common
+
+## Questions
+- When should I use `LEFT JOIN` instead of `INNER JOIN`?
+- How do I find rows with no match after a `LEFT JOIN`?
+- What is the difference between `ON` and `WHERE`?
+- When do I use `DISTINCT` and when `GROUP BY`?
+- Can I use aliases in the `ON` clause?
+- Why do most people prefer `LEFT JOIN` over `RIGHT JOIN`?
+- In a `SELF JOIN`, how do I tell the two copies apart?
 
 ### SECTION 6: 
 ##### Multi-table queries with JOINs
