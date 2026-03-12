@@ -19,3 +19,10 @@ FROM buildings b
 LEFT JOIN employees e
 ON bn = e.building
 GROUP BY bn,r;
+
+SELECT p.page_id  
+FROM pages p
+LEFT JOIN page_likes p_l
+ON p.page_id = p_l.page_id
+WHERE p_l.page_id IS NULL
+;
