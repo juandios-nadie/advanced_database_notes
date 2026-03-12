@@ -1,4 +1,4 @@
-# Session – 2026-06-17
+# Session – 2026-04-17
 
 ## Topics covered
 - `SELECT`
