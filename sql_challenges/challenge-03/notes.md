@@ -1,3 +1,5 @@
+# Session – 2026-02-24
+
 ## Topics covered
 - Aggregate functions
 - `MAX()`
