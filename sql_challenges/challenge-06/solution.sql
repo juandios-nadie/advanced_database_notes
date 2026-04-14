@@ -1,0 +1,50 @@
+
+CREATE OR REPLACE TRIGGER trg_pet_care_log_insert
+BEFORE INSERT ON PET_CARE_LOG
+FOR EACH ROW
+BEGIN
+    :NEW.LAST_UPDATE_DATETIME := SYSDATE;
+    :NEW.CREATED_BY_USER := USER;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error during insert into PET_CARE_LOG: ' || SQLERRM);
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER trg_pet_care_log_update
+BEFORE UPDATE ON PET_CARE_LOG
+FOR EACH ROW
+BEGIN
+    IF USER != :OLD.CREATED_BY_USER THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Update failed: You can only update your own records.');
+    END IF;
+    
+    :NEW.LAST_UPDATE_DATETIME := SYSDATE;
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE = -20002 THEN
+            RAISE; 
+        ELSE
+            RAISE_APPLICATION_ERROR(-20003, 'Error during update on PET_CARE_LOG: ' || SQLERRM);
+        END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER trg_pet_care_log_delete
+BEFORE DELETE ON PET_CARE_LOG
+FOR EACH ROW
+BEGIN
+    IF USER != 'JOEMANAGER' THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Delete failed: Only the manager can delete records.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE = -20004 THEN
+            RAISE;
+        ELSE
+            RAISE_APPLICATION_ERROR(-20005, 'Error during delete on PET_CARE_LOG: ' || SQLERRM);
+        END IF;
+END;
+/
